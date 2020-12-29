@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import lightReducer, {fetchLightState} from '../features/light/lightSlice'
+import fenceReducer, {fetchFenceState} from '../features/fence/fenceSlice'
 
 export const store = configureStore({
   reducer: {
-    light: lightReducer,
+    fence: fenceReducer,
   },
 });
 

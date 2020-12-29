@@ -9,6 +9,8 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.3",
     "bootstrap-switch-button-react": "^1.2.0",
+    "convert-units": "^2.3.4",
+    "pluralize": "^8.0.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-range-slider": "^2.0.2",

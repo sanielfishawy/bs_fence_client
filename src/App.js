@@ -2,21 +2,24 @@ import React from 'react'
 import  Container  from 'react-bootstrap/Container'
 import  Row  from 'react-bootstrap/Row'
 import  Col  from 'react-bootstrap/Col'
-import { PowerSwitch } from './features/light/PowerSwitch'
-import { FrequencyRange } from './features/light/FrequencyRange'
-import { useSelector } from 'react-redux'
+import { PositionRange } from './features/fence/PositionRange'
+import { NumberButton } from './features/fence/NumberButton'
 
 export const App =  () => {
 
-    const blink = useSelector(state => state.light.blink)
-    const displayFreqDuty = blink ? '' : 'd-none'
 
     return (
-        <Container>
-            <h1>Light</h1>
+        <Container >
+            <h1 style={{'text-align': 'center'}}>Band Saw Fence</h1>
             <Row>
-                <Col xs={1} style={{margin: '20px'}}><PowerSwitch/></Col>
-                <Col sm className={displayFreqDuty} style={{margin: '20px'}}><FrequencyRange/></Col>
+                <Col>
+                    <NumberButton
+                        units='cm'
+                    />
+                </Col>
+            </Row>
+            <Row>
+                <Col style={{margin: '20px'}}><PositionRange/></Col>
             </Row>
         </Container>
     )
