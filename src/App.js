@@ -10,16 +10,14 @@ export const App =  () => {
 
     return (
         <Container >
-            <h1 style={{'text-align': 'center'}}>Band Saw Fence</h1>
+            <h1 style={{'textAlign': 'center'}}>Band Saw Fence</h1>
             <Row>
                 <Col>
-                    <NumberButton
-                        units='cm'
-                    />
+                    <NumberButton units='cm' />
                 </Col>
             </Row>
             <Row>
-                <Col style={{margin: '20px'}}><PositionRange/></Col>
+                <Col style={{margin: '20px'}}><PositionRange units='cm'/></Col>
             </Row>
         </Container>
     )
