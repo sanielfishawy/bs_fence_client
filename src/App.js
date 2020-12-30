@@ -19,7 +19,7 @@ export const App =  () => {
                     <NumberButton units='in' />
                 </Col>
                 <Col md='auto'>
-                    <NumberButton units='cm' />
+                    <NumberButton units='ft' />
                 </Col>
             </Row>
             <Row>

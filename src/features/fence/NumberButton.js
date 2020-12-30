@@ -53,7 +53,11 @@ export const NumberButton = (props) => {
     const onInputChange = (e) => {
         const val = e.target.value
         const submit_button = document.getElementById('numberButtonSubmit')
-        submit_button.innerText = `Go ${Number(val).toFixed(2)} ${conv.destination.abbr}`
+
+        let txt = 'Go'
+        txt += e.target.form.checkValidity() ? ` ${Number(val).toFixed(2)} ${conv.destination.abbr}` : ''
+        submit_button.innerText = txt
+
     }
 
     return (
