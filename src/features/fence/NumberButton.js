@@ -11,11 +11,8 @@ export const NumberButton = (props) => {
     const units = props.units
 
     const position = useSelector(state => state.fence.position)
-
     const conv = convert(position).from('in')
-
     const local_pos = conv.to(units)
-    const [new_pos, set_local_pos] = useState(local_pos)
 
     const max_pos = useSelector(state => state.fence.max_position)
     const min_pos = useSelector(state => state.fence.min_position)
@@ -25,34 +22,38 @@ export const NumberButton = (props) => {
     const dispatch = useDispatch()
 
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const [validated, setValidated] = useState(false);
 
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() ) {
-            const standard_pos = convert(new_pos).from(units).to('in')
-            dispatch(setPosition(standard_pos))
-            dispatch(savePosition(standard_pos))
-        }
-        setValidated(true);
-        event.preventDefault();
-        event.stopPropagation();
-        handleClose()
-    };
-
-    const [changed, set_changed] = useState(false)
-
-    const onInputChange = (e) =>{
-        set_changed(true)
-        const np = parseFloat(e.currentTarget.value)
-        if (np) set_local_pos(parseFloat(e.currentTarget.value))
+    const handleClose = () => {
+        setShow(false)
     }
 
-    const go_message = () => {
-        return changed ? `${new_pos.toFixed(2)} ${conv.destination.abbr}` : ''
+    const handleShow = () => {
+        setShow(true);
+        setValidated(false)
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const form = event.currentTarget;
+
+        if (form.checkValidity() ) {
+            const formData = new FormData(event.target)
+            const formDataObj = Object.fromEntries(formData.entries())
+            const pos = formDataObj.position
+            const standard_pos = Number(convert(pos).from(units).to('in'))
+            dispatch(setPosition(standard_pos))
+            dispatch(savePosition(standard_pos))
+            handleClose()
+        }
+        setValidated(true)
+    };
+
+    const onInputChange = (e) => {
+        const val = e.target.value
+        const submit_button = document.getElementById('numberButtonSubmit')
+        submit_button.innerText = `Go ${Number(val).toFixed(2)} ${conv.destination.abbr}`
     }
 
     return (
@@ -73,15 +74,16 @@ export const NumberButton = (props) => {
                         <Form.Group controlId="validationCustom05">
                             <Form.Label>Enter position in {conv.destination.unit.name.plural.toLowerCase()}</Form.Label>
                             <Form.Control
+                                name="position"
                                 type="number"
-                                placeholder={new_pos.toFixed(2)}
+                                // placeholder={new_pos.toFixed(2)}
                                 min={local_min_pos}
                                 max={local_max_pos}
-                                onChange={onInputChange}
                                 step=".0001"
+                                onChange={onInputChange}
                                 required />
                             <Form.Control.Feedback type="invalid">
-                                Please enter position in {conv.destination.unit.name.plural}
+                                Please enter position between {local_min_pos.toFixed(2)} and {local_max_pos.toFixed(2)} {conv.destination.unit.name.plural.toLowerCase()}
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Modal.Body>
@@ -90,9 +92,10 @@ export const NumberButton = (props) => {
                             Cancel
                         </Button>
                         <Button
+                            id='numberButtonSubmit'
                             type="submit"
                             disabled={false}
-                        >Go {go_message()}
+                        >Go
                         </Button>
                     </Modal.Footer>
                 </Form>
