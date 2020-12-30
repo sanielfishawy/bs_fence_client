@@ -61,7 +61,7 @@ export const NumberButton = (props) => {
     }
 
     return (
-        <>
+        <div className='number-button'>
             <Button
                 className='btn-huge btn-primary'
                 onClick={handleShow}
@@ -104,6 +104,6 @@ export const NumberButton = (props) => {
                     </Modal.Footer>
                 </Form>
             </Modal>
-        </>
+        </div>
     )
 }

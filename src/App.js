@@ -10,17 +10,22 @@ export const App =  () => {
 
     return (
         <Container >
-            <Row className='justify-content-md-center'>
-                <h1 style={{marginBottom:'4rem'}}>Band Saw Fence</h1>
+            <Row className='d-flex justify-content-center'>
+                <h1 >Band Saw Fence</h1>
             </Row>
 
-            <Row className='justify-content-md-center'>
-                <Col md='auto'>
-                    <NumberButton units='in' />
-                </Col>
-                <Col md='auto'>
-                    <NumberButton units='ft' />
-                </Col>
+            {/* <Row className='justify-content-md-center'> */}
+            <Row>
+                <div className='centeredOuter'>
+                    <div className='centeredInner'>
+                        <div>
+                            <NumberButton units='in' />
+                        </div>
+                        <div>
+                            <NumberButton units='cm' />
+                        </div>
+                    </div>
+                </div>
             </Row>
             <Row>
                 <Col style={{margin: '20px'}}><PositionRange units='in'/></Col>
