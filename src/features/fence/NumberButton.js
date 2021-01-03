@@ -80,6 +80,8 @@ export const NumberButton = (props) => {
                             <Form.Control
                                 name="position"
                                 type="number"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
                                 // placeholder={new_pos.toFixed(2)}
                                 min={local_min_pos}
                                 max={local_max_pos}
