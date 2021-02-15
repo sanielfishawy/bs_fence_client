@@ -22,7 +22,7 @@ export const App =  () => {
                             <NumberButton units='in' />
                         </div>
                         <div>
-                            <NumberButton units='cm' />
+                            <NumberButton units='cm' precision='2' base_units='cm' />
                         </div>
                     </div>
                 </div>

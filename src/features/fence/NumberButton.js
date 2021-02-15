@@ -9,15 +9,17 @@ const convert = require('convert-units')
 
 export const NumberButton = (props) => {
     const units = props.units
+    const precision = props.precision || 2
+    const base_unit = props.base_unit || 'in'
 
     const position = useSelector(state => state.fence.position)
-    const conv = convert(position).from('in')
+    const conv = convert(position).from(base_unit)
     const local_pos = conv.to(units)
 
     const max_pos = useSelector(state => state.fence.max_position)
     const min_pos = useSelector(state => state.fence.min_position)
-    const local_min_pos = convert(min_pos).from('in').to(units)
-    const local_max_pos = convert(max_pos).from('in').to(units)
+    const local_min_pos = convert(min_pos).from(base_unit).to(units)
+    const local_max_pos = convert(max_pos).from(base_unit).to(units)
 
     const dispatch = useDispatch()
 
@@ -42,7 +44,7 @@ export const NumberButton = (props) => {
             const formData = new FormData(event.target)
             const formDataObj = Object.fromEntries(formData.entries())
             const pos = formDataObj.position
-            const standard_pos = Number(convert(pos).from(units).to('in'))
+            const standard_pos = Number(convert(pos).from(units).to(base_unit))
             dispatch(setPosition(standard_pos))
             dispatch(savePosition(standard_pos))
             handleClose()
@@ -55,7 +57,7 @@ export const NumberButton = (props) => {
         const submit_button = document.getElementById('numberButtonSubmit')
 
         let txt = 'Go'
-        txt += e.target.form.checkValidity() ? ` ${Number(val).toFixed(2)} ${conv.destination.abbr}` : ''
+        txt += e.target.form.checkValidity() ? ` ${Number(val).toFixed(precision)} ${conv.destination.abbr}` : ''
         submit_button.innerText = txt
 
     }
@@ -63,10 +65,10 @@ export const NumberButton = (props) => {
     return (
         <div className='number-button'>
             <Button
-                className='btn-huge btn-primary'
+                className='btn-huge'
                 onClick={handleShow}
             >
-                {local_pos.toFixed(2)} <small> {conv.destination.abbr}</small>
+                {local_pos.toFixed(precision)} <small> {conv.destination.abbr}</small>
             </Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -82,14 +84,14 @@ export const NumberButton = (props) => {
                                 type="number"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                // placeholder={new_pos.toFixed(2)}
+                                // placeholder={new_pos.toFixed(precision)}
                                 min={local_min_pos}
                                 max={local_max_pos}
                                 step=".0001"
                                 onChange={onInputChange}
                                 required />
                             <Form.Control.Feedback type="invalid">
-                                Please enter position between {local_min_pos.toFixed(2)} and {local_max_pos.toFixed(2)} {conv.destination.unit.name.plural.toLowerCase()}
+                                Please enter position between {local_min_pos.toFixed(precision)} and {local_max_pos.toFixed(precision)} {conv.destination.unit.name.plural.toLowerCase()}
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Modal.Body>
