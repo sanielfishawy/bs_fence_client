@@ -9,14 +9,17 @@ export const PositionRange = (props) => {
   const units = props.units
 
 
-  const position = useSelector( state => state.fence.position )
+  let position = useSelector( state => state.fence.position )
+  position = position || 0
   const conv = convert(position).from('in')
   const local_pos = conv.to(units)
 
   // const [local_pos, set_local_pos] = useState(conv.to(units))
 
-  const max_pos = useSelector(state => state.fence.max_position)
-  const min_pos = useSelector(state => state.fence.min_position)
+  let max_pos = useSelector(state => state.fence.max_position)
+  max_pos = max_pos || 10
+  let min_pos = useSelector(state => state.fence.min_position)
+  min_pos = min_pos || 0
   const local_min_pos = convert(min_pos).from('in').to(units)
   const local_max_pos = convert(max_pos).from('in').to(units)
 
