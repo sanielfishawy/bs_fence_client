@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import fenceReducer, {fetchFenceState} from '../features/fence/fenceSlice'
+import fenceReducer, {socket, setState} from '../features/fence/fenceSlice'
 
 export const store = configureStore({
   reducer: {
@@ -7,8 +7,19 @@ export const store = configureStore({
   },
 });
 
-setInterval(
-  async () => {await store.dispatch(fetchFenceState())},
-  500,
-)
+
+socket.on('connect', () => {
+    console.log(`Connected ${socket.id}`)
+})
+
+socket.on('update_state', (state) => {
+    console.log('received', state)
+    store.dispatch(setState(state))
+})
+
+
+// setInterval(
+//   async () => {await store.dispatch(fetchFenceState())},
+//   500,
+// )
   // (async () => {await store.dispatch(fetchWooferState())})()
