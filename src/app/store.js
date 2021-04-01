@@ -13,7 +13,6 @@ socket.on('connect', () => {
 })
 
 socket.on('update_state', (state) => {
-    console.log('received', state)
     store.dispatch(setState(state))
 })
 

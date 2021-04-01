@@ -16,8 +16,24 @@ export const fetchFenceState = createAsyncThunk('/fence/fetchFenceState', async 
 //     return response.json()
 // })
 
-export const savePosition= createAsyncThunk('savePositionSocket', async position => {
-        socket.emit('save_position', {position: position})
+export const savePosition= createAsyncThunk('savePosition', async position => {
+        socket.emit('save_position', position)
+})
+
+export const findStops = createAsyncThunk('findStops', async () => {
+        socket.emit('find_stops') 
+})
+
+export const clearErrors = createAsyncThunk('clearErrors', async () => {
+        socket.emit('clear_errors') 
+})
+
+export const saveRevolutionsPerInch = createAsyncThunk('saveRevolutionsPerInch', async (rpi) => {
+        socket.emit('save_revolutions_per_inch', rpi) 
+})
+
+export const saveZeroPosition = createAsyncThunk('saveZeroPosition', async (zero) => {
+        socket.emit('save_zero_position', zero) 
 })
 
 const fenceSlice = createSlice({
@@ -37,23 +53,33 @@ const fenceSlice = createSlice({
     reducers:{
         setPosition: (state, action) => { state.position = action.payload },
         setState: (state, action) => { 
-            console.log('state: ', state)
-            console.log('action: ', action)
             const fetchedState = action.payload
             for (let key of Object.keys(fetchedState)){state[key] = fetchedState[key]}
         },
     },
     extraReducers:{
-        [fetchFenceState.fulfilled]: (state, action) => {
-            const fetchedState = action.payload
-            for (let key of Object.keys(fetchedState)){state[key] = fetchedState[key]}
-        },
-        [fetchFenceState.rejected]: (state, action) => {
-            console.log('Rejected!')
-            console.error(action.error)
-        },
+        // [fetchFenceState.fulfilled]: (state, action) => {
+        //     const fetchedState = action.payload
+        //     for (let key of Object.keys(fetchedState)){state[key] = fetchedState[key]}
+        // },
+        // [fetchFenceState.rejected]: (state, action) => {
+        //     console.log('Rejected!')
+        //     console.error(action.error)
+        // },
         [savePosition.fulfilled]: (state, action) => {
-            console.log('Position set', action)
+            console.log('savePosition', action)
+        },
+        [findStops.fulfilled]: (state, action) => {
+            console.log('findStops', action)
+        },
+        [clearErrors.fulfilled]: (state, action) => {
+            console.log('clearErrors', action)
+        },
+        [saveRevolutionsPerInch.fulfilled]: (state, action) => {
+            console.log('saveRevolutionsPerInch', action)
+        },
+        [saveZeroPosition.fulfilled]: (state, action) => {
+            console.log('saveZeroPosition', action)
         },
     }
 })

@@ -12,14 +12,14 @@ export const NumberButton = (props) => {
     const precision = props.precision || 2
     const base_unit = props.base_unit || 'in'
 
-    let position = useSelector(state => state.fence.position)
+    let position = useSelector(state => state.fence.position_inches)
     position = position || 0
     const conv = convert(position).from(base_unit)
     const local_pos = conv.to(units)
 
-    let max_pos = useSelector(state => state.fence.max_position)
+    let max_pos = useSelector(state => state.fence.max_position_inches)
     max_pos = max_pos || 10
-    let min_pos = useSelector(state => state.fence.min_position)
+    let min_pos = useSelector(state => state.fence.min_position_inches)
     min_pos = min_pos || 0
     const local_min_pos = convert(min_pos).from(base_unit).to(units)
     const local_max_pos = convert(max_pos).from(base_unit).to(units)
