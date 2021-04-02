@@ -26,10 +26,10 @@ export const App =  () => {
                 <div className='centeredOuter'>
                     <div className='centeredInner'>
                         <div>
-                            <NumberButton units='in' />
+                            <NumberButton units='in' precision='3' />
                         </div>
                         <div>
-                            <NumberButton units='cm' precision='2' base_units='cm' />
+                            <NumberButton units='cm' precision='3' base_units='cm' />
                         </div>
                     </div>
                 </div>

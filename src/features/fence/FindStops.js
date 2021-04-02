@@ -7,8 +7,8 @@ import { useState } from 'react'
 
 export const FindStops = (props) => {
 
-    const [finding_stops, set_finding_stops] = useState(false)
     const found_stops = useSelector(state => state.fence.limits_set)
+    let [finding_stops, set_finding_stops] = useState(false)
 
     const get_button_text = () => {
         return finding_stops ? 'Please Wait' : 'Find Stops' 
@@ -27,10 +27,12 @@ export const FindStops = (props) => {
         dispatch(findStops())
     }
 
-    const handle_hide = () => { }
+    const handle_show = () => {
+        set_finding_stops(false)
+    }
 
     return(
-        <Modal show={!found_stops} onHide={handle_hide}>
+        <Modal show={!found_stops} onShow={handle_show}>
             <Modal.Header>
                 <Modal.Title>Find Stops</Modal.Title>
             </Modal.Header>

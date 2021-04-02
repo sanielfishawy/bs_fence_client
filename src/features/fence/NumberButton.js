@@ -88,8 +88,8 @@ export const NumberButton = (props) => {
                                 inputMode="numeric"
                                 pattern="[0-9]*"
                                 // placeholder={new_pos.toFixed(precision)}
-                                min={local_min_pos}
-                                max={local_max_pos}
+                                // min={local_min_pos}
+                                // max={local_max_pos}
                                 step=".0001"
                                 onChange={onInputChange}
                                 required />

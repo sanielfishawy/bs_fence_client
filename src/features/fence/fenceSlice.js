@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import {io} from 'socket.io-client'
-export const socket = io('http://localhost:5005')
+export const socket = io('http://192.168.1.159:80')
 
 export const fetchFenceState = createAsyncThunk('/fence/fetchFenceState', async () => {
     const response = await fetch('/fence')
